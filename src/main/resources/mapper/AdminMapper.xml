@@ -14,27 +14,27 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
-    from tb_admin_user
+    from ibuki_admin_user
     where admin_id = #{adminId,jdbcType=TINYINT}
   </select>
   <select id="login" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
-    from tb_admin_user
+    from ibuki_admin_user
     where login_name = #{userName,jdbcType=VARCHAR} AND login_password=#{password,jdbcType=VARCHAR} AND locked = 0
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Byte">
-    delete from tb_admin_user
+    delete from ibuki_admin_user
     where admin_id = #{adminId,jdbcType=TINYINT}
   </delete>
   <insert id="insert" parameterType="coeo.ibuki.entity.Admin">
-    insert into tb_admin_user (admin_id, login_name, login_password,
+    insert into ibuki_admin_user (admin_id, login_name, login_password,
       admin_nick_name, locked)
     values (#{adminId,jdbcType=TINYINT}, #{loginName,jdbcType=VARCHAR}, #{loginPassword,jdbcType=VARCHAR},
       #{adminNickName,jdbcType=VARCHAR}, #{locked,jdbcType=TINYINT})
   </insert>
   <insert id="insertSelective" parameterType="coeo.ibuki.entity.Admin">
-    insert into tb_admin_user
+    insert into ibuki_admin_user
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="adminId != null">
         admin_id,
@@ -71,7 +71,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="coeo.ibuki.entity.Admin">
-    update tb_admin_user
+    update ibuki_admin_user
     <set>
       <if test="loginName != null">
         login_name = #{loginName,jdbcType=VARCHAR},
@@ -89,7 +89,7 @@
     where admin_id = #{adminId,jdbcType=TINYINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="coeo.ibuki.entity.Admin">
-    update tb_admin_user
+    update ibuki_admin_user
     set login_name = #{loginName,jdbcType=VARCHAR},
       login_password = #{loginPassword,jdbcType=VARCHAR},
       admin_nick_name = #{adminNickName,jdbcType=VARCHAR},
