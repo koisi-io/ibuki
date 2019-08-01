@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<header th:replace="admin/header::header-fragment"></header>
+
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+
+  <div th:replace="admin/header::header-nav"></div>
+  <div th:replace="admin/sidebar::sidebar-fragment"></div>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        Admin index
+        <small>(◔౪◔)</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Admin</a></li>
+        <li class="active">category</li>
+      </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content container-fluid">
+
+      <div class="card card-primary card-outline">
+          <div class="card-header">
+              <h3 class="card-title">分类管理</h3>
+          </div> <!-- /.card-body -->
+          <div class="card-body">
+              <div class="grid-btn">
+                  <button class="btn btn-info" onclick="categoryAdd()"><i
+                          class="fa fa-plus"></i>&nbsp;新增
+                  </button>
+                  <button class="btn btn-info" onclick="categoryEdit()"><i
+                          class="fa fa-pencil-square-o"></i>&nbsp;修改
+                  </button>
+                  <button class="btn btn-danger" onclick="deleteCagegory()"><i
+                          class="fa fa-trash-o"></i>&nbsp;删除
+                  </button>
+              </div>
+              <br>
+              <table id="jqGrid" class="table table-bordered">
+              </table>
+              <div id="jqGridPager"></div>
+          </div><!-- /.card-body -->
+      </div>
+
+    </section>
+    <section class="content">
+      
+      <div class="modal fade" id="categoryModal" tabindex="-1" role="dialog" aria-labelledby="categoryModalLabel">
+          <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                              aria-hidden="true">&times;</span></button>
+                      <h6 class="modal-title" id="categoryModalLabel">Modal</h6>
+                  </div>
+                  <div class="modal-body">
+                      <form id="categoryForm">
+                          <div class="form-group">
+                              <div class="alert alert-danger" id="edit-error-msg" style="display: none;">
+                                  错误信息展示栏。
+                              </div>
+                          </div>
+                          <input type="hidden" class="form-control" id="categoryId" name="categoryId">
+                          <div class="form-group">
+                              <label for="categoryName" class="control-label">分类名称:</label>
+                              <input type="text" class="form-control" id="categoryName" name="categoryName"
+                                     placeholder="请输入分类名称" required="true">
+                          </div>
+                      </form>
+                  </div>
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                      <button type="button" class="btn btn-primary" id="saveButton">确认</button>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+    </section>
+  </div>
+  <!-- /.content-wrapper -->
+
+  <!-- Main Footer -->
+  <div th:replace="admin/footer::footer-fragment"></div>
+  <!-- Control Sidebar -->
+  <div th:replace="admin/control_sidebar::control-sidebar-fragment"></div>
+  <!-- Add the sidebar's background. This div must be placed
+  immediately after the control sidebar -->
+  <div class="control-sidebar-bg"></div>
+</div>
+
+<!-- jQuery 3 -->
+<script th:src="@{/bower_components/jquery/dist/jquery.min.js}"></script>
+<!-- Bootstrap 3.3.7 -->
+<script th:src="@{/bower_components/bootstrap/dist/js/bootstrap.min.js}"></script>
+<!-- AdminLTE App -->
+<script th:src="@{/dist/js/adminlte.min.js}"></script>
+
+<script th:src="@{/plugins/jQueryUI/jquery-ui.min.js}"></script>
+<script th:src="@{/ibuki/jqGrid/jquery.jqGrid.min.js}"></script>
+<script th:src="@{/ibuki/jqGrid/grid.locale-cn.js}"></script>
+<script th:src="@{/ibuki/sweetalert/sweetalert.min.js}"></script>
+<script th:src="@{/ibuki/public.js}"></script>
+<script th:src="@{/ibuki/category.js}"></script>
+
+</body>
+</html>
