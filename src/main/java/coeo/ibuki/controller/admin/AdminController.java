@@ -21,36 +21,36 @@ public class AdminController {
 
 	@Resource
     private AdminService adminService;
-	
+
 	@GetMapping({"/login"})
     public String login() {
         return "admin/login";
     }
-	
+
 	@GetMapping({"", "/", "/index", "/index.html"})
     public String index(HttpServletRequest request) {
         request.setAttribute("path", "index");
         return "admin/index";
     }
-	
+
 	@PostMapping(value = "/login")
     public String login(@RequestParam("userName") String userName,
                         @RequestParam("password") String password,
                         @RequestParam("verifyCode") String verifyCode,
                         HttpSession session) {
-        if (StringUtils.isEmpty(verifyCode)) {
-            session.setAttribute("errorMsg", "验证码不能为空");
-            return "admin/login";
-        }
+        // if (StringUtils.isEmpty(verifyCode)) {
+        //     session.setAttribute("errorMsg", "验证码不能为空");
+        //     return "admin/login";
+        // }
         if (StringUtils.isEmpty(userName) || StringUtils.isEmpty(password)) {
             session.setAttribute("errorMsg", "用户名或密码不能为空");
             return "admin/login";
         }
-        String kaptchaCode = session.getAttribute("verifyCode") + "";
-        if (StringUtils.isEmpty(kaptchaCode) || !verifyCode.equals(kaptchaCode)) {
-            session.setAttribute("errorMsg", "验证码错误");
-            return "admin/login";
-        }
+        // String kaptchaCode = session.getAttribute("verifyCode") + "";
+        // if (StringUtils.isEmpty(kaptchaCode) || !verifyCode.equals(kaptchaCode)) {
+        //     session.setAttribute("errorMsg", "验证码错误");
+        //     return "admin/login";
+        // }
         Admin adminUser = adminService.login(userName, password);
         if (adminUser != null) {
             session.setAttribute("loginUser", adminUser.getAdminNickName());
@@ -63,7 +63,7 @@ public class AdminController {
             return "admin/login";
         }
     }
-	
+
 	@GetMapping("/profile")
     public String profile(HttpServletRequest request) {
         Long loginUserId = (long) request.getSession().getAttribute("loginUserId");
@@ -76,7 +76,7 @@ public class AdminController {
         request.setAttribute("nickName", adminUser.getAdminNickName());
         return "admin/profile";
     }
-	
+
 	@PostMapping("/profile/password")
     @ResponseBody
     public String passwordUpdate(HttpServletRequest request, @RequestParam("originalPassword") String originalPassword,
@@ -95,7 +95,7 @@ public class AdminController {
             return "修改失败";
         }
     }
-	
+
 	@PostMapping("/profile/name")
     @ResponseBody
     public String nameUpdate(HttpServletRequest request, @RequestParam("loginUserName") String loginUserName,
@@ -110,7 +110,7 @@ public class AdminController {
             return "修改失败";
         }
     }
-	
+
 	@GetMapping("/logout")
     public String logout(HttpServletRequest request) {
         request.getSession().removeAttribute("loginUserId");
@@ -118,5 +118,5 @@ public class AdminController {
         request.getSession().removeAttribute("errorMsg");
         return "admin/login";
     }
-	
+
 }
