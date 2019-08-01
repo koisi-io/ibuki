@@ -1,6 +1,8 @@
 package coeo.ibuki.controller.admin;
 
+import coeo.ibuki.entity.Admin;
 import coeo.ibuki.entity.NewsCategory;
+import coeo.ibuki.service.AdminService;
 import coeo.ibuki.service.CategoryService;
 import coeo.ibuki.util.PageQueryUtil;
 import coeo.ibuki.util.Result;
@@ -20,9 +22,19 @@ public class CategoryController {
 
     @Resource
     private CategoryService categoryService;
+    @Resource
+    private AdminService adminService;
 
     @GetMapping("/categories")
     public String categoryPage(HttpServletRequest request) {
+    	
+		Long loginUserId = (long) request.getSession().getAttribute("loginUserId");
+        Admin adminUser = adminService.getUserDetailById(loginUserId);
+        if (adminUser == null) {
+            return "admin/login";
+        }
+		request.setAttribute("loginUserName", adminUser.getLoginName());
+		
         request.setAttribute("path", "categories");
         return "admin/category";
     }
