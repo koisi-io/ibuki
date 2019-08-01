@@ -29,7 +29,15 @@ public class AdminController {
 
 	@GetMapping({"", "/", "/index", "/index.html"})
     public String index(HttpServletRequest request) {
-        request.setAttribute("path", "index");
+		
+		Long loginUserId = (long) request.getSession().getAttribute("loginUserId");
+        Admin adminUser = adminService.getUserDetailById(loginUserId);
+        if (adminUser == null) {
+            return "admin/login";
+        }
+		request.setAttribute("loginUserName", adminUser.getLoginName());
+        
+		request.setAttribute("path", "index");
         return "admin/index";
     }
 
